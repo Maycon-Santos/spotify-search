@@ -44,7 +44,7 @@ export class SearchResult extends Component {
                     ))}
                   </span>
                   <span className="track-duration">
-                    {String(((track.duration_ms / 1000) / 60).toFixed(2)).replace('.', ':')} minutos
+                    {String(((track.duration_ms / 60000)).toFixed(2)).replace('.', ':')} minutos
                   </span>
                 </div>
               </ResultItem>
