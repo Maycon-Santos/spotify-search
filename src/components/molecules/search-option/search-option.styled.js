@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { colors } from '../../../theme/colors'
+
 import { lighten } from 'polished'
 
 export const Container = styled.label`
@@ -11,21 +13,20 @@ export const Container = styled.label`
   border-radius: 3px;
   color: white;
   font-size: 9px;
-  font-weight: 600;
   letter-spacing: .1em;
   text-transform: uppercase;
   user-select: none;
   background-color: #45505a;
   &:hover{
     cursor: pointer;
-    background-color: ${lighten(.1, '#45505a')};
+    background-color: ${colors.currentLine};
   }
   &:active{
     transform: scale(.95);
   }
 
   ${props => props.checked && `
-    background: #478C7A !important;
+    background: ${colors.comment} !important;
   `}
 
   input { display: none; }

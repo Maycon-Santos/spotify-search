@@ -6,42 +6,67 @@ import { SearchInput } from '../../molecules/search-input'
 import { SearchOption } from '../../molecules/search-option'
 
 export class Header extends Component {
-  state = {
-    searchBy: 0,
-  }
-
   options = [
     {
+      label: 'Música',
+      searchType: 'track',
+    },
+    {
       label: 'Álbum',
-      searchBy: 'album',
+      searchType: 'album',
     },
     {
       label: 'Artista',
-      searchBy: 'artist',
+      searchType: 'artist',
     },
-    {
-      label: 'Música',
-      searchBy: 'music',
-    }
   ]
+
+  state = {
+    searchType: this.getOptionIndex(this.props.type) || 0,
+  }
+
+  componentDidMount () {
+    const { searchType } = this.state
+    this.onChange({ defaultSearchType: this.options[searchType].searchType })
+  }
+
+  getOptionIndex (type) {
+    for (let index = 0; index < this.options.length; index++) {
+      const option = this.options[index]
+      if (option.searchType === type) {
+        return index
+      }
+    }
+  }
+
+  onChange = ({ searchText, searchType, defaultSearchType }) => {
+    const { onChange } = this.props
+    if (typeof onChange === 'function') {
+      onChange({ searchText, searchType, defaultSearchType })
+    }
+  }
+
+  searchInputOnChange = searchText => this.onChange({ searchText })
 
   chooseOption = index => {
     return e => {
       if (e.target.checked) {
-        this.setState({ searchBy: index })
+        this.setState({ searchType: index }, () => {
+          this.onChange({ searchType: this.options[index].searchType })
+        })
       }
     }
   }
 
   render () {
-    const { searchBy } = this.state
+    const { searchType } = this.state
     return (
       <HeaderContainer>
-        <SearchInput />
+        <SearchInput onChange={this.searchInputOnChange} />
         {this.options.map((option, index) => (
           <SearchOption
-            key={option.searchBy}
-            checked={searchBy === index}
+            key={option.searchType}
+            checked={searchType === index}
             onChange={this.chooseOption(index)}
           >
             {option.label}

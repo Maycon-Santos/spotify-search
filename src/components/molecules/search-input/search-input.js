@@ -9,6 +9,13 @@ export class SearchInput extends Component {
 
   inputTextRef = null
 
+  onChange = (e) => {
+    const { onChange } = this.props
+    if (typeof onChange === 'function') {
+      onChange(e.target.value)
+    }
+  }
+
   onFocus = () => {
     this.setState({ isFocused: true })
   }
@@ -31,6 +38,7 @@ export class SearchInput extends Component {
         ref={ref => this.inputTextRef = ref}
         isFocused={isFocused}
         placeholder="O que procura?"
+        onChange={this.onChange}
       />
       </InputContainer>
     )

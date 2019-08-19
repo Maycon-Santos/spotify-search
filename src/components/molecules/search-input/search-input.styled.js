@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { rgba, lighten } from 'polished'
+import { rgba, darken, lighten } from 'polished'
 
 import { colors } from '../../../theme/colors'
 
@@ -11,18 +11,18 @@ export const InputContainer = styled.label`
   border-radius: 3px;
   min-height: 22px;
   padding: 8px 12px;
-  box-shadow: 0 0 0 4px ${rgba(colors.secundary, 0)};
+  box-shadow: 0 0 0 4px transparent;
   cursor: text;
   background: ${colors.whitish};
   transition: box-shadow 80ms linear;
 
   &:hover{
-    background: ${lighten(.1, colors.whitish)};
+    background: ${lighten(.1, colors.foreground)};
   }
 
   ${props => props.isFocused && `
-    box-shadow: 3px 3px 9px 0 rgba(28, 35, 41, 0.66);
-    background: ${lighten(.4, colors.whitish)} !important;
+    box-shadow: 3px 3px 9px 0 ${rgba(darken(.1, colors.background), .5)};
+    background: ${lighten(.4, colors.foreground)} !important;
   `}
 `
 
@@ -32,10 +32,9 @@ export const InputText = styled.input`
   outline: none;
   font-family: inherit;
   font-size: 12px;
-  font-weight: 600;
-  color: #596877;
+  color: ${colors.comment};
   ${props => props.isFocused && `
-    color: ${'#29394a'};
+    color: ${darken(.2, colors.comment)};
   `}
   background: transparent;
 `

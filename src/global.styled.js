@@ -54,6 +54,7 @@ export const Reset = createGlobalStyle`
 `
 
 export const Body = createGlobalStyle`
+  html, body, #root { width: 100%; height: 100%; }
   body{
     font-family: 'Montserrat', sans-serif;
     background: ${colors.background};
